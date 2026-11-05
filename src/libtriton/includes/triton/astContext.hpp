@@ -12,7 +12,6 @@
 #include <list>
 #include <memory>
 #include <unordered_map>
-#include <utility>
 #include <vector>
 
 #include <triton/ast.hpp>
@@ -73,12 +72,6 @@ namespace triton {
 
         //! Returns simplified extraction.
         SharedAbstractNode simplify_extract(triton::uint32 high, triton::uint32 low, const SharedAbstractNode& expr);
-
-        //! Allocates a node. Every node built by the context goes through here.
-        template <typename T, typename... Args>
-        std::shared_ptr<T> newNode(Args&&... args) {
-          return std::make_shared<T>(std::forward<Args>(args)...);
-        }
 
       public:
         //! Constructor
