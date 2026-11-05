@@ -601,6 +601,7 @@ namespace triton {
       public:
         template <typename T> CompoundNode(const T& exprs, const SharedAstContext& ctxt)
           : AbstractNode(COMPOUND_NODE, ctxt) {
+          this->children.reserve(exprs.size());
           for (auto expr : exprs)
             this->addChild(expr);
         }
@@ -617,6 +618,7 @@ namespace triton {
       public:
         template <typename T> ConcatNode(const T& exprs, const SharedAstContext& ctxt)
           : AbstractNode(CONCAT_NODE, ctxt) {
+          this->children.reserve(exprs.size());
           for (auto expr : exprs)
             this->addChild(expr);
         }
@@ -678,6 +680,7 @@ namespace triton {
       public:
         template <typename T> ForallNode(const T& vars, const SharedAbstractNode& body)
           : AbstractNode(FORALL_NODE, body->getContext()) {
+          this->children.reserve(vars.size() + 1);
           for (auto var : vars)
             this->addChild(var);
           this->addChild(body);
@@ -732,6 +735,7 @@ namespace triton {
       public:
         template <typename T> LandNode(const T& exprs, const SharedAstContext& ctxt)
           : AbstractNode(LAND_NODE, ctxt) {
+          this->children.reserve(exprs.size());
           for (auto expr : exprs)
             this->addChild(expr);
         }
@@ -771,6 +775,7 @@ namespace triton {
       public:
         template <typename T> LorNode(const T& exprs, const SharedAstContext& ctxt)
           : AbstractNode(LOR_NODE, ctxt) {
+          this->children.reserve(exprs.size());
           for (auto expr : exprs)
             this->addChild(expr);
         }
@@ -788,6 +793,7 @@ namespace triton {
       public:
         template <typename T> LxorNode(const T& exprs, const SharedAstContext& ctxt)
           : AbstractNode(LXOR_NODE, ctxt) {
+          this->children.reserve(exprs.size());
           for (auto expr : exprs)
             this->addChild(expr);
         }

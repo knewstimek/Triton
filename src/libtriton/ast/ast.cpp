@@ -611,6 +611,7 @@ namespace triton {
 
 
     BvaddNode::BvaddNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVADD_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -666,6 +667,7 @@ namespace triton {
 
 
     BvandNode::BvandNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVAND_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -721,6 +723,7 @@ namespace triton {
 
 
     BvashrNode::BvashrNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVASHR_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -808,6 +811,7 @@ namespace triton {
 
 
     BvlshrNode::BvlshrNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVLSHR_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -863,6 +867,7 @@ namespace triton {
 
 
     BvmulNode::BvmulNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVMUL_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -918,6 +923,7 @@ namespace triton {
 
 
     BvnandNode::BvnandNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVNAND_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1024,6 +1030,7 @@ namespace triton {
 
 
     BvnorNode::BvnorNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVNOR_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1130,6 +1137,7 @@ namespace triton {
 
 
     BvorNode::BvorNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVOR_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1189,6 +1197,7 @@ namespace triton {
 
 
     BvrolNode::BvrolNode(const SharedAbstractNode& expr, const SharedAbstractNode& rot): AbstractNode(BVROL_NODE, expr->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr);
       this->addChild(rot);
     }
@@ -1252,6 +1261,7 @@ namespace triton {
 
 
     BvrorNode::BvrorNode(const SharedAbstractNode& expr, const SharedAbstractNode& rot): AbstractNode(BVROR_NODE, expr->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr);
       this->addChild(rot);
     }
@@ -1311,6 +1321,7 @@ namespace triton {
 
 
     BvsdivNode::BvsdivNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVSDIV_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1379,6 +1390,7 @@ namespace triton {
 
 
     BvsgeNode::BvsgeNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVSGE_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1441,6 +1453,7 @@ namespace triton {
 
 
     BvsgtNode::BvsgtNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVSGT_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1503,6 +1516,7 @@ namespace triton {
 
 
     BvshlNode::BvshlNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVSHL_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1558,6 +1572,7 @@ namespace triton {
 
 
     BvsleNode::BvsleNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVSLE_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1620,6 +1635,7 @@ namespace triton {
 
 
     BvsltNode::BvsltNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVSLT_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1682,6 +1698,7 @@ namespace triton {
 
 
     BvsmodNode::BvsmodNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVSMOD_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1748,6 +1765,7 @@ namespace triton {
 
 
     BvsremNode::BvsremNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVSREM_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1814,6 +1832,7 @@ namespace triton {
 
 
     BvsubNode::BvsubNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVSUB_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1869,6 +1888,7 @@ namespace triton {
 
 
     BvudivNode::BvudivNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVUDIV_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1928,6 +1948,7 @@ namespace triton {
 
 
     BvugeNode::BvugeNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVUGE_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -1983,6 +2004,7 @@ namespace triton {
 
 
     BvugtNode::BvugtNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVUGT_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -2038,6 +2060,7 @@ namespace triton {
 
 
     BvuleNode::BvuleNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVULE_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -2093,6 +2116,7 @@ namespace triton {
 
 
     BvultNode::BvultNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVULT_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -2148,6 +2172,7 @@ namespace triton {
 
 
     BvuremNode::BvuremNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVUREM_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -2207,6 +2232,7 @@ namespace triton {
 
 
     BvxnorNode::BvxnorNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVXNOR_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -2262,6 +2288,7 @@ namespace triton {
 
 
     BvxorNode::BvxorNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(BVXOR_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -2422,6 +2449,7 @@ namespace triton {
 
 
     ConcatNode::ConcatNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(CONCAT_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -2534,6 +2562,7 @@ namespace triton {
 
 
     DistinctNode::DistinctNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(DISTINCT_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -2589,6 +2618,7 @@ namespace triton {
 
 
     EqualNode::EqualNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(EQUAL_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -2644,6 +2674,7 @@ namespace triton {
 
 
     ExtractNode::ExtractNode(triton::uint32 high, triton::uint32 low, const SharedAbstractNode& expr): AbstractNode(EXTRACT_NODE, expr->getContext()) {
+      this->children.reserve(3);
       this->addChild(this->ctxt->integer(high));
       this->addChild(this->ctxt->integer(low));
       this->addChild(expr);
@@ -2761,6 +2792,7 @@ namespace triton {
 
 
     IffNode::IffNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(IFF_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -2859,6 +2891,7 @@ namespace triton {
 
 
     IteNode::IteNode(const SharedAbstractNode& ifExpr, const SharedAbstractNode& thenExpr, const SharedAbstractNode& elseExpr): AbstractNode(ITE_NODE, ifExpr->getContext()) {
+      this->children.reserve(3);
       this->addChild(ifExpr);
       this->addChild(thenExpr);
       this->addChild(elseExpr);
@@ -2928,6 +2961,7 @@ namespace triton {
 
 
     LandNode::LandNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(LAND_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -2981,6 +3015,7 @@ namespace triton {
 
 
     LetNode::LetNode(std::string alias, const SharedAbstractNode& expr2, const SharedAbstractNode& expr3): AbstractNode(LET_NODE, expr2->getContext()) {
+      this->children.reserve(3);
       this->addChild(this->ctxt->string(alias));
       this->addChild(expr2);
       this->addChild(expr3);
@@ -3085,6 +3120,7 @@ namespace triton {
 
 
     LorNode::LorNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2): AbstractNode(LOR_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -3138,6 +3174,7 @@ namespace triton {
 
 
     LxorNode::LxorNode(const SharedAbstractNode& expr1, const SharedAbstractNode& expr2) : AbstractNode(LXOR_NODE, expr1->getContext()) {
+      this->children.reserve(2);
       this->addChild(expr1);
       this->addChild(expr2);
     }
@@ -3230,12 +3267,14 @@ namespace triton {
     /* ====== Select node */
 
     SelectNode::SelectNode(const SharedAbstractNode& array, triton::usize index): AbstractNode(SELECT_NODE, array->getContext()) {
+      this->children.reserve(2);
       this->addChild(array);
       this->addChild(this->ctxt->bv(index, triton::ast::getIndexSize(array)));
     }
 
 
     SelectNode::SelectNode(const SharedAbstractNode& array, const SharedAbstractNode& index): AbstractNode(SELECT_NODE, array->getContext()) {
+      this->children.reserve(2);
       this->addChild(array);
       this->addChild(index);
     }
@@ -3302,6 +3341,7 @@ namespace triton {
 
 
     StoreNode::StoreNode(const SharedAbstractNode& array, triton::usize index, const SharedAbstractNode& expr): AbstractNode(STORE_NODE, array->getContext()) {
+      this->children.reserve(3);
       this->addChild(array);
       this->addChild(this->ctxt->bv(index, triton::ast::getIndexSize(array)));
       this->addChild(expr);
@@ -3309,6 +3349,7 @@ namespace triton {
 
 
     StoreNode::StoreNode(const SharedAbstractNode& array, const SharedAbstractNode& index, const SharedAbstractNode& expr): AbstractNode(STORE_NODE, array->getContext()) {
+      this->children.reserve(3);
       this->addChild(array);
       this->addChild(index);
       this->addChild(expr);
@@ -3458,6 +3499,7 @@ namespace triton {
 
 
     SxNode::SxNode(triton::uint32 sizeExt, const SharedAbstractNode& expr): AbstractNode(SX_NODE, expr->getContext()) {
+      this->children.reserve(2);
       this->addChild(this->ctxt->integer(sizeExt));
       this->addChild(expr);
     }
@@ -3561,6 +3603,7 @@ namespace triton {
 
 
     ZxNode::ZxNode(triton::uint32 sizeExt, const SharedAbstractNode& expr): AbstractNode(ZX_NODE, expr->getContext()) {
+      this->children.reserve(2);
       this->addChild(this->ctxt->integer(sizeExt));
       this->addChild(expr);
     }
