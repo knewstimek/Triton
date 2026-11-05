@@ -7,6 +7,7 @@
 
 #include <list>
 #include <memory>
+#include <new>
 #include <vector>
 
 #include <triton/ast.hpp>
@@ -19,6 +20,66 @@
 
 namespace triton {
   namespace ast {
+
+    void* NodePool::allocate(std::size_t size) {
+      std::size_t index = (size + granularity - 1) / granularity;
+      void* block = nullptr;
+
+      if (index >= classes) {
+        block = ::operator new(size);
+      }
+      else if (this->freeLists[index] != nullptr) {
+        block = this->freeLists[index];
+        this->freeLists[index] = this->freeLists[index]->next;
+      }
+      else {
+        std::size_t bytes = index * granularity;
+        if (static_cast<std::size_t>(this->end - this->cursor) < bytes) {
+          /* Keep the slot first so that a failing push_back cannot leak the chunk */
+          this->chunks.push_back(nullptr);
+          this->chunks.back() = static_cast<char*>(::operator new(chunkSize));
+          this->cursor = this->chunks.back();
+          this->end    = this->cursor + chunkSize;
+        }
+        block = this->cursor;
+        this->cursor += bytes;
+      }
+
+      this->live++;
+      return block;
+    }
+
+
+    void NodePool::deallocate(void* block, std::size_t size) noexcept {
+      std::size_t index = (size + granularity - 1) / granularity;
+
+      if (index >= classes) {
+        ::operator delete(block);
+      }
+      else {
+        this->freeLists[index] = new (block) FreeBlock{this->freeLists[index]};
+      }
+
+      if (--this->live == 0 && this->orphaned) {
+        delete this;
+      }
+    }
+
+
+    void NodePool::orphan(void) noexcept {
+      this->orphaned = true;
+      if (this->live == 0) {
+        delete this;
+      }
+    }
+
+
+    NodePool::~NodePool() {
+      for (char* chunk : this->chunks) {
+        ::operator delete(chunk);
+      }
+    }
+
 
     AstContext::AstContext(const triton::modes::SharedModes& modes)
       : modes(modes), evalGeneration(0) {
