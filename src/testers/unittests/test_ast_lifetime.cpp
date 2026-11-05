@@ -221,6 +221,8 @@ namespace {
       node = parent;
     }
     node.reset();
+  }
+
   /* A few instructions on symbolic registers; returns one line per symbolic expression (id, text, hash, value) */
   std::vector<std::string> runProgram(triton::Context& ctx) {
     const char* program[] = {
