@@ -8,7 +8,6 @@
 #ifndef TRITON_AST_CONTEXT_H
 #define TRITON_AST_CONTEXT_H
 
-#include <cstddef>
 #include <deque>
 #include <list>
 #include <memory>
@@ -50,128 +49,10 @@ namespace triton {
    *  @{
    */
 
-    //! \class NodePool
-    /*! \brief Free lists of fixed-size blocks the nodes of one AstContext are allocated from.
-     *
-     * \details The pool outlives its context while blocks are in use: the last node of a context can
-     * release the context from its destructor before its own block is given back.
-     */
-    class NodePool {
-      public:
-        //! Returns a block of at least `size` bytes, aligned on 16 bytes.
-        TRITON_EXPORT void* allocate(std::size_t size);
-
-        //! Gives a block back.
-        TRITON_EXPORT void deallocate(void* block, std::size_t size) noexcept;
-
-        //! Called when the owning context goes away. The pool is deleted with its last block.
-        TRITON_EXPORT void orphan(void) noexcept;
-
-      private:
-        //! A block on a free list.
-        struct FreeBlock {
-          FreeBlock* next;
-        };
-
-        //! Block sizes are multiples of this, which is also the alignment of every block.
-        static constexpr std::size_t granularity = 16;
-
-        //! Number of size classes. Larger blocks come from operator new.
-        static constexpr std::size_t classes = 64;
-
-        //! Bytes taken from operator new at a time.
-        static constexpr std::size_t chunkSize = 64 * 1024;
-
-        //! Free blocks of each size class.
-        FreeBlock* freeLists[classes] = {};
-
-        //! Memory taken from operator new.
-        std::vector<char*> chunks;
-
-        //! The unused part of the last chunk.
-        char* cursor = nullptr;
-        char* end = nullptr;
-
-        //! Blocks handed out and not given back.
-        std::size_t live = 0;
-
-        //! True when the owning context is gone.
-        bool orphaned = false;
-
-        //! Only orphan() and deallocate() delete the pool.
-        TRITON_EXPORT ~NodePool();
-    };
-
-
-    //! Allocator giving NodePool blocks to std::allocate_shared.
-    template <typename T>
-    class NodeAllocator {
-      public:
-        using value_type = T;
-
-        NodePool* pool;
-
-        explicit NodeAllocator(NodePool* pool) : pool(pool) {
-        }
-
-        template <typename U>
-        NodeAllocator(const NodeAllocator<U>& other) : pool(other.pool) {
-        }
-
-        T* allocate(std::size_t n) {
-          static_assert(alignof(T) <= 16, "NodePool blocks are aligned on 16 bytes");
-          return static_cast<T*>(this->pool->allocate(n * sizeof(T)));
-        }
-
-        void deallocate(T* block, std::size_t n) noexcept {
-          this->pool->deallocate(block, n * sizeof(T));
-        }
-
-        template <typename U>
-        bool operator==(const NodeAllocator<U>& other) const {
-          return this->pool == other.pool;
-        }
-
-        template <typename U>
-        bool operator!=(const NodeAllocator<U>& other) const {
-          return this->pool != other.pool;
-        }
-    };
-
-
-    //! Owns the NodePool of an AstContext. A copied context gets a pool of its own.
-    class NodePoolOwner {
-      private:
-        NodePool* pool;
-
-      public:
-        NodePoolOwner() : pool(new NodePool) {
-        }
-
-        NodePoolOwner(const NodePoolOwner&) : pool(new NodePool) {
-        }
-
-        NodePoolOwner& operator=(const NodePoolOwner&) {
-          return *this;
-        }
-
-        ~NodePoolOwner() {
-          this->pool->orphan();
-        }
-
-        NodePool* get(void) const {
-          return this->pool;
-        }
-    };
-
-
     //! \class AstContext
     /*! \brief AST Context - Used as AST builder. */
     class AstContext : public std::enable_shared_from_this<AstContext> {
       private:
-        //! The blocks nodes are allocated from
-        NodePoolOwner pool;
-
         //! Modes API
         triton::modes::SharedModes modes;
 
@@ -196,7 +77,7 @@ namespace triton {
         //! Allocates a node. Every node built by the context goes through here.
         template <typename T, typename... Args>
         std::shared_ptr<T> newNode(Args&&... args) {
-          return std::allocate_shared<T>(NodeAllocator<T>(this->pool.get()), std::forward<Args>(args)...);
+          return std::make_shared<T>(std::forward<Args>(args)...);
         }
 
       public:
