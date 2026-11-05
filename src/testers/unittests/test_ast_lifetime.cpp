@@ -320,6 +320,20 @@ namespace {
     require(runProgram(second) == expected, "the same program built different expressions");
   }
 
+  void testContextReleasedWithDeepAst() {
+    std::weak_ptr<triton::ast::AstContext> weak;
+    {
+      triton::Context ctx(triton::arch::ARCH_X86_64);
+      auto ast = ctx.getAstContext();
+      weak = ast;
+      auto node = ast->variable(ctx.newSymbolicVariable(64));
+      for (unsigned i = 0; i < 10000; ++i) {
+        node = ast->bvadd(node, ast->bv(1, 64));
+      }
+    }
+    require(weak.expired(), "AstContext outlives its Context once an AST is 10000 levels deep");
+  }
+
 } // namespace
 
 int main() {
@@ -339,6 +353,7 @@ int main() {
     {"nodes survive a context reset", testNodesSurviveReset},
     {"interleaved contexts", testInterleavedContexts},
     {"same trees after allocation churn", testSameTreesAfterChurn},
+    {"context released with a deep AST", testContextReleasedWithDeepAst},
   };
   unsigned failed = 0;
   for (const auto& test : tests) {
