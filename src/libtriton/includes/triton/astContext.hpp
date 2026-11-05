@@ -24,6 +24,20 @@
 
 
 
+//! Sanitizer builds allocate nodes one by one so that AddressSanitizer sees every node.
+#ifndef TRITON_NODE_POOL
+  #if defined(__SANITIZE_ADDRESS__)
+    #define TRITON_NODE_POOL 0
+  #elif defined(__has_feature)
+    #if __has_feature(address_sanitizer)
+      #define TRITON_NODE_POOL 0
+    #endif
+  #endif
+#endif
+#ifndef TRITON_NODE_POOL
+  #define TRITON_NODE_POOL 1
+#endif
+
 //! The Triton namespace
 namespace triton {
 /*!
@@ -196,7 +210,11 @@ namespace triton {
         //! Allocates a node. Every node built by the context goes through here.
         template <typename T, typename... Args>
         std::shared_ptr<T> newNode(Args&&... args) {
+          #if TRITON_NODE_POOL
           return std::allocate_shared<T>(NodeAllocator<T>(this->pool.get()), std::forward<Args>(args)...);
+          #else
+          return std::make_shared<T>(std::forward<Args>(args)...);
+          #endif
         }
 
       public:
